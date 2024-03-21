@@ -1,0 +1,7 @@
+quart==0.19.4
+pydantic==2.5.3
+huggingface-hub==0.21.4
+pyarweave @ git+https://github.com/ritual-net/pyarweave.git
+click==8.1.7
+transformers==4.38.2
+torch==2.1.2

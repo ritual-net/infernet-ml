@@ -1,0 +1,48 @@
+# pre-commit workflow
+#
+# Ensures the codebase passes the pre-commit stack.
+
+name: Python CI
+
+on: [push]
+
+jobs:
+  python_ci:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [ "3.10", "3.11" ]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install UV
+        run: python -m pip install uv
+
+      - name: Create virtual environment
+        run: uv venv
+
+      - name: Activate virtual environment
+        run: |
+          . .venv/bin/activate
+          echo PATH=$PATH >> $GITHUB_ENV
+
+      - name: Install dependencies
+        run: uv pip install -r requirements.lock
+
+      - name: Run pre-commit hooks
+        run: pre-commit run --all-files --show-diff-on-failure
+
+      - name: Run tests (infernet_ml)
+        working-directory: .
+        env:
+          HUGGING_FACE_HUB_TOKEN: ${{ secrets.HF_TOKEN }}
+          MODEL_OWNER: ${{ secrets.MODEL_OWNER }}
+          PYTHONPATH: src
+        run: pytest -vvv

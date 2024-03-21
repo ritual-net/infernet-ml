@@ -1,0 +1,10 @@
+quart==0.19.4
+torch==2.0.1
+onnx==1.15.0
+onnxruntime==1.16.3
+pydantic==2.5.3
+huggingface-hub==0.17.3
+pyarweave @ git+https://github.com/ritual-net/pyarweave.git
+click==8.1.7
+text-generation==0.6.1
+retry2==0.9.5

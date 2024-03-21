@@ -1,0 +1,72 @@
+[build-system]
+requires = ["setuptools>=61.0", "setuptools-scm>=8.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "infernet_ml"
+version = "0.1.0"
+description = "Lightweight library to build web3 machine learning workflows"
+readme = "README.md"
+requires-python = ">=3.10, <3.12"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+
+dependencies = [
+    "python-dotenv>=1.0.0,<2.0.0",
+    "pydantic>=2.5.3,<3.0.0",
+    "huggingface-hub>=0.17.3,<1.0.0",
+    "click>=8.1.7,<9.0.0",
+]
+
+[project.optional-dependencies]
+
+# torch inference dependencies
+torch_inference = [
+    "torch>=2.1.2,<3.0.0",
+    "sk2torch>=1.2.0,<2.0.0"
+]
+
+# bark inference service
+bark_inference = [
+    "torch>=2.1.2,<3.0.0",
+    "transformers>=4.37.2,<5.0.0",
+    "scipy>=1.11.4,<2.0.0",
+]
+
+# onnx inference dependencies
+onnx_inference = [
+    "torch>=2.1.2,<3.0.0",
+    "onnx>=1.15.0,<2.0.0",
+    "onnxruntime>=1.16.3,<2.0.0",
+]
+
+# llm inference dependencies
+tgi_inference = [
+    "text-generation>=0.6.1,<1.0.0",
+    "retry2>=0.9.5,<1.0.0",
+]
+
+css_inference = [
+    "text-generation>=0.6.1,<1.0.0",
+    "retry2>=0.9.5,<1.0.0",
+]
+
+[project.scripts]
+arweave = "infernet_ml.utils.arweave:cli"
+
+[tool.pytest.ini_options]
+log_cli = true
+log_cli_level = "INFO"
+log_cli_format = "%(asctime)s [%(levelname)8s] %(message)s (%(filename)s:%(lineno)s)"
+log_cli_date_format = "%Y-%m-%d %H:%M:%S"
+
+[tool.setuptools_scm]
+fallback_version = "0.0.0"
+
+[tool.mypy]
+exclude = ['venv', '.venv']
+
+[tool.isort]
+profile = "black"

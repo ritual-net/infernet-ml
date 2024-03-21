@@ -1,0 +1,10 @@
+quart==0.19.4
+torch==2.0.1
+retry2==0.9.5
+eth-abi==2.2.0
+pydantic==2.5.3
+sk2torch==1.2.0
+scikit-learn==1.3.2
+huggingface-hub==0.17.3
+pyarweave @ git+https://github.com/ritual-net/pyarweave.git
+click==8.1.7

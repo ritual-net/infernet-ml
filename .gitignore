@@ -1,0 +1,83 @@
+# Python
+__pycache__/
+.pytest_cache
+
+# ezkl artifacts
+input.json
+*.srs
+*.compiled
+*.onnx
+settings.json
+*.pf
+*.pk
+*.vk
+witness.json
+
+# mlflow / mlruns
+mlfow
+mlruns
+
+
+# notebooks
+notebooks
+**/known_nodes.json
+*/.vscode/*
+*/.idea/*
+*/.DS_Store
+*/.env
+*/.env.local
+*/.env.*.local
+
+# Linters
+**/.mypy_cache/
+**/.ruff_cache/
+
+# Unit test / coverage reports
+htmlcov/
+.coverage
+.coverage.*
+
+# Environments
+.env
+.venv
+env/
+venv/
+
+#dotenv files
+.env
+*.env
+
+# onnx environment
+onnx
+
+# Mac finder cache
+.DS_Store
+
+# Local logs
+*.log
+
+# Config file
+config.json
+
+# ignore build artifacts
+infernet_ml.egg-info
+dist
+build
+
+#ide specific
+launch.json
+
+# ide
+.idea
+
+# wallet files
+**/keyfile-arweave.json
+
+# shared volume files
+shared
+
+# model files
+**/*.torch
+
+# pypi-server packages (testing installation of lib locally)
+packages
