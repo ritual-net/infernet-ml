@@ -103,7 +103,7 @@ class HFInferenceClientWorkflow(BaseInferenceWorkflow):
         """
         Setup the inference client
         """
-        self.client = InferenceClient(token=self.kwargs.get("token"))
+        self.client = InferenceClient(model=self.model_id, token=self.kwargs.get("token"))
         self.task = self.client.__getattribute__(self.task_id)
         self.task_argspec = inspect.getfullargspec(self.task)
         done = (
