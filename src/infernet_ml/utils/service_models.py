@@ -81,3 +81,30 @@ class CSSRequest(BaseModel):
     params: Union[CSSCompletionParams, CSSEmbeddingParams] = Field(
         ..., discriminator="endpoint"
     )
+
+
+class ChasmPromptParams(BaseModel):
+    """
+    A Chasm Prompt Param refers to the prompt endpoint
+    """
+
+    endpoint: Literal["prompt"]
+
+
+class ChasmWorkflowsParams(BaseModel):
+    """
+    A Chasm Workflows Param refers to the workflows endpoint
+    """
+
+    endpoint: Literal["workflows"]
+
+
+class ChasmRequest(BaseModel):
+    """A ChasmRequest to query Chasm.net's preset Prompts and Workflows."""
+
+    endpoint_id: str 
+    # body is a dict of inputs {"input": {}}, could be more explicitly defined
+    body: dict
+    params: Union[ChasmPromptParams, ChasmWorkflowsParams] = Field(
+        ..., discriminator="endpoint"
+    )

@@ -17,6 +17,9 @@ from infernet_ml.utils.service_models import (
     CSSCompletionParams,
     CSSEmbeddingParams,
     CSSRequest,
+    ChasmPromptParams,
+    ChasmWorkflowsParams,
+    ChasmRequest,
 )
 from infernet_ml.workflows.exceptions import RetryableException, ServiceException
 
@@ -71,6 +74,24 @@ def goose_ai_helper(req: CSSRequest) -> tuple[str, dict[str, Any]]:
             raise ServiceException(f"Unsupported request {req}")
 
 
+def chasm_net_helper(req: ChasmRequest) -> tuple[str, dict[str, str]]:
+    """
+    Returns base url, processed input.
+    """
+    match req:
+        case ChasmRequest(endpoint_id=prompt_id, body=body, params=ChasmPromptParams(body=body)):
+            return f"https://pms.chasm.net/api/prompts/execute/{prompt_id}", {
+                "body": body,
+            }
+
+        case ChasmRequest(endpoint_id=workflow_id, body=body, params=ChasmWorkflowsParams(body=body)):
+            return f"https://pms.chasm.net/api/workflows/execute/{workflow_id}", {
+                "body": body,
+            }
+        case _:
+            raise ServiceException(f"Unsupported request {req}")
+
+
 PROVIDERS: dict[str, Any] = {
     "OPENAI": {
         "input_func": open_ai_helper,
@@ -101,6 +122,19 @@ PROVIDERS: dict[str, Any] = {
                 "real_endpoint": "completions",
                 "proc": lambda result: result["choices"][0]["text"],
             }
+        },
+    },
+    "CHASMNET": {
+        "input_func": chasm_net_helper,
+        "endpoints": {
+            "prompt": {
+                "real_endpoint": "",
+                "proc": lambda result: result["output"],
+            },
+            "workflows": {
+                "real_endpoint": "",
+                "proc": lambda result: result["output"],
+            },
         },
     },
 }
